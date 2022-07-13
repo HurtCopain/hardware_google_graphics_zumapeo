@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2019 The Android Open Source Project
+ * Copyright (C) 2022 The Android Open Source Project
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -13,26 +13,16 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-#ifndef _EXYNOS_MPP_MODULE_H
-#define _EXYNOS_MPP_MODULE_H
 
-#include "ExynosMPP.h"
+#ifndef _EXYNOS_MPP_MODULE_ZUMA_H
+#define _EXYNOS_MPP_MODULE_ZUMA_H
 
-#define MAX_DPP_ROT_SRC_SIZE (3040*1440)
+#include "../../gs201/libhwc2.1/libresource/ExynosMPPModule.h"
 
 namespace zuma {
 
-class ExynosMPPModule : public ExynosMPP {
-    public:
-        ExynosMPPModule(ExynosResourceManager* resourceManager, uint32_t physicalType, uint32_t logicalType, const char *name,
-            uint32_t physicalIndex, uint32_t logicalIndex, uint32_t preAssignInfo);
-        ~ExynosMPPModule();
-        virtual uint32_t getSrcXOffsetAlign(struct exynos_image &src);
-        virtual int32_t setColorConversionInfo();
-    public:
-        uint32_t mChipId;
-};
+using ExynosMPPModule = gs201::ExynosMPPModule;
 
 }  // namespace zuma
 
-#endif
+#endif // _EXYNOS_MPP_MODULE_ZUMA_H

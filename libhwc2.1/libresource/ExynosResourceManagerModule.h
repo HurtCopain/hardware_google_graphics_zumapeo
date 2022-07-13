@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2019 The Android Open Source Project
+ * Copyright (C) 2022 The Android Open Source Project
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -13,19 +13,16 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-#ifndef _EXYNOS_RESOURCE_MANAGER_MODULE_H
-#define _EXYNOS_RESOURCE_MANAGER_MODULE_H
 
-#include "ExynosResourceManager.h"
+#ifndef _EXYNOS_RESOURCE_MANAGER_MODULE_ZUMA_H
+#define _EXYNOS_RESOURCE_MANAGER_MODULE_ZUMA_H
+
+#include "../../gs201/libhwc2.1/libresource/ExynosResourceManagerModule.h"
 
 namespace zuma {
 
-class ExynosResourceManagerModule : public ExynosResourceManager {
-    public:
-        ExynosResourceManagerModule(ExynosDevice* device);
-        ~ExynosResourceManagerModule();
-};
+using ExynosResourceManagerModule = gs201::ExynosResourceManagerModule;
 
 }  // namespace zuma
 
-#endif // _EXYNOS_RESOURCE_MANAGER_MODULE_H
+#endif // _EXYNOS_RESOURCE_MANAGER_MODULE_ZUMA_H

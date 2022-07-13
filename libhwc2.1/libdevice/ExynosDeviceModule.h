@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2019 The Android Open Source Project
+ * Copyright (C) 2022 The Android Open Source Project
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -14,35 +14,15 @@
  * limitations under the License.
  */
 
-#ifndef EXYNOS_DEVICE_MODULE_H
-#define EXYNOS_DEVICE_MODULE_H
+#ifndef EXYNOS_DEVICE_MODULE_ZUMA_H
+#define EXYNOS_DEVICE_MODULE_ZUMA_H
 
-#include <gs101/displaycolor/displaycolor_gs101.h>
-
-#include "DisplayColorLoader.h"
-#include "ExynosDevice.h"
-
-using namespace displaycolor;
+#include "../../../gs201/libhwc2.1/libdevice/ExynosDeviceModule.h"
 
 namespace zuma {
 
-class ExynosDeviceModule : public ExynosDevice {
-    public:
-        ExynosDeviceModule();
-        virtual ~ExynosDeviceModule();
-
-        IDisplayColorGS101* getDisplayColorInterface() { return mDisplayColorInterface; }
-        void setActiveDisplay(uint32_t index) { mActiveDisplay = index; }
-        uint32_t getActiveDisplay() const { return mActiveDisplay; }
-
-    private:
-        int initDisplayColor(const std::vector<displaycolor::DisplayInfo>& display_info);
-
-        IDisplayColorGS101* mDisplayColorInterface;
-        DisplayColorLoader mDisplayColorLoader;
-        uint32_t mActiveDisplay;
-};
+using ExynosDeviceModule = gs201::ExynosDeviceModule;
 
 }  // namespace zuma
 
-#endif
+#endif // EXYNOS_DEVICE_MODULE_ZUMA_H

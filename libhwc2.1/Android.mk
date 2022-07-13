@@ -1,4 +1,4 @@
-# Copyright (C) 2019 The Android Open Source Project
+# Copyright (C) 2022 The Android Open Source Project
 #
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
@@ -13,15 +13,16 @@
 # limitations under the License.
 
 LOCAL_SRC_FILES += \
-	../../$(TARGET_BOARD_PLATFORM)/libhwc2.1/libdevice/ExynosDeviceModule.cpp \
-	../../$(TARGET_BOARD_PLATFORM)/libhwc2.1/libmaindisplay/ExynosPrimaryDisplayModule.cpp \
-	../../$(TARGET_BOARD_PLATFORM)/libhwc2.1/libresource/ExynosMPPModule.cpp \
-	../../$(TARGET_BOARD_PLATFORM)/libhwc2.1/libresource/ExynosResourceManagerModule.cpp	\
-	../../$(TARGET_BOARD_PLATFORM)/libhwc2.1/libexternaldisplay/ExynosExternalDisplayModule.cpp \
-	../../$(TARGET_BOARD_PLATFORM)/libhwc2.1/libvirtualdisplay/ExynosVirtualDisplayModule.cpp \
-	../../$(TARGET_BOARD_PLATFORM)/libhwc2.1/libdisplayinterface/ExynosDisplayDrmInterfaceModule.cpp
+	../../gs101/libhwc2.1/libdevice/ExynosDeviceModule.cpp \
+	../../gs101/libhwc2.1/libmaindisplay/ExynosPrimaryDisplayModule.cpp \
+	../../gs101/libhwc2.1/libresource/ExynosMPPModule.cpp \
+	../../gs201/libhwc2.1/libresource/ExynosMPPModule.cpp \
+	../../gs101/libhwc2.1/libresource/ExynosResourceManagerModule.cpp	\
+	../../gs101/libhwc2.1/libexternaldisplay/ExynosExternalDisplayModule.cpp \
+	../../gs101/libhwc2.1/libvirtualdisplay/ExynosVirtualDisplayModule.cpp \
+	../../gs101/libhwc2.1/libdisplayinterface/ExynosDisplayDrmInterfaceModule.cpp
 
 LOCAL_CFLAGS += -DDISPLAY_COLOR_LIB=\"libdisplaycolor.so\"
 
 LOCAL_C_INCLUDES += \
-	$(TOP)/hardware/google/graphics/zuma/include
+	$(TOP)/hardware/google/graphics/gs101/include

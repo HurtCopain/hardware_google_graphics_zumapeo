@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2019 The Android Open Source Project
+ * Copyright (C) 2022 The Android Open Source Project
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -13,21 +13,16 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-#ifndef EXYNOS_EXTERNAL_DISPLAY_MODULE_H
-#define EXYNOS_EXTERNAL_DISPLAY_MODULE_H
 
-#include "ExynosDisplay.h"
-#include "ExynosExternalDisplay.h"
+#ifndef EXYNOS_EXTERNAL_DISPLAY_MODULE_ZUMA_H
+#define EXYNOS_EXTERNAL_DISPLAY_MODULE_ZUMA_H
+
+#include "../../gs201/libhwc2.1/libexternaldisplay/ExynosExternalDisplayModule.h"
 
 namespace zuma {
 
-class ExynosExternalDisplayModule : public ExynosExternalDisplay {
-    public:
-        ExynosExternalDisplayModule(uint32_t index, ExynosDevice *device);
-        ~ExynosExternalDisplayModule();
-        virtual int32_t validateWinConfigData();
-};
+using ExynosExternalDisplayModule = gs201::ExynosExternalDisplayModule;
 
 }  // namespace zuma
 
-#endif
+#endif // EXYNOS_EXTERNAL_DISPLAY_MODULE_ZUMA_H
