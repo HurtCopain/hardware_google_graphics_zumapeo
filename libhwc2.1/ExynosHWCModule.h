@@ -82,69 +82,53 @@ static const dpp_channel_map_t idma_channel_map[] = {
      IDMA(15)}};
 
 static const exynos_mpp_t available_otf_mpp_units[] = {
-    // Zuma has 8 Graphics-Only Layers
-    // Zuma has 6 Video-Graphics Layers
-    // Zuma has total 14 Layers
+    // There are total 14 layers(8 graphics-only and 6 video-graphics layers)
 
     // DPP0(IDMA_GFS0) in DPUF0 is connected with AXI0 port
-    {MPP_DPP_GFS, MPP_LOGICAL_DPP_GFS, "DPP_GFS0", 0, 0,
-     HWC_DISPLAY_PRIMARY_BIT, static_cast<uint32_t>(DPUF0),
-     static_cast<uint32_t>(AXI0)},
+    {MPP_DPP_GFS, MPP_LOGICAL_DPP_GFS, "DPP_GFS0", 0, 0, HWC_RESERVE_DISPLAY_MAIN_BIT,
+     static_cast<uint32_t>(DPUF0), static_cast<uint32_t>(AXI0)},
     // DPP1(IDMA_VGRFS0) in DPUF0 is connected with AXI0 port
-    {MPP_DPP_VGRFS, MPP_LOGICAL_DPP_VGRFS, "DPP_VGRFS0", 0, 0,
-     HWC_DISPLAY_PRIMARY_BIT, static_cast<uint32_t>(DPUF0),
-     static_cast<uint32_t>(AXI0)},
+    {MPP_DPP_VGRFS, MPP_LOGICAL_DPP_VGRFS, "DPP_VGRFS0", 0, 0, HWC_RESERVE_DISPLAY_MAIN_BIT,
+     static_cast<uint32_t>(DPUF0), static_cast<uint32_t>(AXI0)},
     // DPP2(IDMA_GFS1) in DPUF0 is connected with AXI0 port
-    {MPP_DPP_GFS, MPP_LOGICAL_DPP_GFS, "DPP_GFS1", 1, 0,
-     HWC_DISPLAY_PRIMARY_BIT, static_cast<uint32_t>(DPUF0),
-     static_cast<uint32_t>(AXI0)},
+    {MPP_DPP_GFS, MPP_LOGICAL_DPP_GFS, "DPP_GFS1", 1, 0, HWC_RESERVE_DISPLAY_MAIN_BIT,
+     static_cast<uint32_t>(DPUF0), static_cast<uint32_t>(AXI0)},
     // DPP3(IDMA_VGRFS1) in DPUF0 is connected with AXI0 port
-    {MPP_DPP_VGRFS, MPP_LOGICAL_DPP_VGRFS, "DPP_VGRFS1", 1, 0,
-     HWC_DISPLAY_PRIMARY_BIT, static_cast<uint32_t>(DPUF0),
-     static_cast<uint32_t>(AXI0)},
+    {MPP_DPP_VGRFS, MPP_LOGICAL_DPP_VGRFS, "DPP_VGRFS1", 1, 0, HWC_RESERVE_DISPLAY_MAIN_BIT,
+     static_cast<uint32_t>(DPUF0), static_cast<uint32_t>(AXI0)},
 
     // DPP4(IDMA_GFS2) in DPUF0 is connected with AXI1 port
-    {MPP_DPP_GFS, MPP_LOGICAL_DPP_GFS, "DPP_GFS2", 2, 0,
-     HWC_DISPLAY_PRIMARY_BIT, static_cast<uint32_t>(DPUF0),
-     static_cast<uint32_t>(AXI1)},
+    {MPP_DPP_GFS, MPP_LOGICAL_DPP_GFS, "DPP_GFS2", 2, 0, HWC_RESERVE_DISPLAY_MINOR_BIT,
+     static_cast<uint32_t>(DPUF0), static_cast<uint32_t>(AXI1)},
     // DPP5(IDMA_VGRFS2) in DPUF0 is connected with AXI1 port
-    {MPP_DPP_VGRFS, MPP_LOGICAL_DPP_VGRFS, "DPP_VGRFS2", 2, 0,
-     HWC_DISPLAY_PRIMARY_BIT, static_cast<uint32_t>(DPUF0),
-     static_cast<uint32_t>(AXI1)},
+    {MPP_DPP_VGRFS, MPP_LOGICAL_DPP_VGRFS, "DPP_VGRFS2", 2, 0, HWC_RESERVE_DISPLAY_MAIN_BIT,
+     static_cast<uint32_t>(DPUF0), static_cast<uint32_t>(AXI1)},
     // DPP6(IDMA_GFS3) in DPUF0 is connected with AXI1 port
-    {MPP_DPP_GFS, MPP_LOGICAL_DPP_GFS, "DPP_GFS3", 3, 0,
-     HWC_DISPLAY_PRIMARY_BIT, static_cast<uint32_t>(DPUF0),
-     static_cast<uint32_t>(AXI1)},
+    {MPP_DPP_GFS, MPP_LOGICAL_DPP_GFS, "DPP_GFS3", 3, 0, HWC_RESERVE_DISPLAY_MINOR_BIT,
+     static_cast<uint32_t>(DPUF0), static_cast<uint32_t>(AXI1)},
 
     // DPP7(IDMA_GFS4) in DPUF1 is connected with AXI1 port
-    {MPP_DPP_GFS, MPP_LOGICAL_DPP_GFS, "DPP_GFS4", 4, 0,
-     HWC_DISPLAY_SECONDARY_BIT, static_cast<uint32_t>(DPUF1),
-     static_cast<uint32_t>(AXI1)},
+    {MPP_DPP_GFS, MPP_LOGICAL_DPP_GFS, "DPP_GFS4", 4, 0, HWC_RESERVE_DISPLAY_MAIN_BIT,
+     static_cast<uint32_t>(DPUF1), static_cast<uint32_t>(AXI1)},
     // DPP8(IDMA_VGRFS3) in DPUF1 is connected with AXI1 port
-    {MPP_DPP_VGRFS, MPP_LOGICAL_DPP_VGRFS, "DPP_VGRFS3", 3, 0,
-     HWC_DISPLAY_SECONDARY_BIT, static_cast<uint32_t>(DPUF1),
-     static_cast<uint32_t>(AXI1)},
+    {MPP_DPP_VGRFS, MPP_LOGICAL_DPP_VGRFS, "DPP_VGRFS3", 3, 0, HWC_RESERVE_DISPLAY_MAIN_BIT,
+     static_cast<uint32_t>(DPUF1), static_cast<uint32_t>(AXI1)},
     // DPP9(IDMA_GFS5) in DPUF1 is connected with AXI1 port
-    {MPP_DPP_GFS, MPP_LOGICAL_DPP_GFS, "DPP_GFS5", 5, 0,
-     HWC_DISPLAY_SECONDARY_BIT, static_cast<uint32_t>(DPUF1),
-     static_cast<uint32_t>(AXI1)},
+    {MPP_DPP_GFS, MPP_LOGICAL_DPP_GFS, "DPP_GFS5", 5, 0, HWC_RESERVE_DISPLAY_MINOR_BIT,
+     static_cast<uint32_t>(DPUF1), static_cast<uint32_t>(AXI1)},
     // DPP10(IDMA_VGRFS4) in DPUF1 is connected with AXI1 port
-    {MPP_DPP_VGRFS, MPP_LOGICAL_DPP_VGRFS, "DPP_VGRFS4", 4, 0,
-     HWC_DISPLAY_SECONDARY_BIT, static_cast<uint32_t>(DPUF1),
-     static_cast<uint32_t>(AXI1)},
+    {MPP_DPP_VGRFS, MPP_LOGICAL_DPP_VGRFS, "DPP_VGRFS4", 4, 0, HWC_RESERVE_DISPLAY_MAIN_BIT,
+     static_cast<uint32_t>(DPUF1), static_cast<uint32_t>(AXI1)},
 
     // DPP11(IDMA_GFS6) in DPUF1 is connected with AXI0 port
-    {MPP_DPP_GFS, MPP_LOGICAL_DPP_GFS, "DPP_GFS6", 6, 0,
-     HWC_DISPLAY_EXTERNAL_BIT, static_cast<uint32_t>(DPUF1),
-     static_cast<uint32_t>(AXI0)},
+    {MPP_DPP_GFS, MPP_LOGICAL_DPP_GFS, "DPP_GFS6", 6, 0, HWC_RESERVE_DISPLAY_MINOR_BIT,
+     static_cast<uint32_t>(DPUF1), static_cast<uint32_t>(AXI0)},
     // DPP12(IDMA_VGRFS5) in DPUF1 is connected with AXI0 port
-    {MPP_DPP_VGRFS, MPP_LOGICAL_DPP_VGRFS, "DPP_VGRFS5", 5, 0,
-     HWC_DISPLAY_EXTERNAL_BIT, static_cast<uint32_t>(DPUF1),
-     static_cast<uint32_t>(AXI0)},
+    {MPP_DPP_VGRFS, MPP_LOGICAL_DPP_VGRFS, "DPP_VGRFS5", 5, 0, HWC_RESERVE_DISPLAY_MINOR_BIT,
+     static_cast<uint32_t>(DPUF1), static_cast<uint32_t>(AXI0)},
     // DPP13(IDMA_GFS7) in DPUF1 is connected with AXI0 port
-    {MPP_DPP_GFS, MPP_LOGICAL_DPP_GFS, "DPP_GFS7", 7, 0,
-     HWC_DISPLAY_EXTERNAL_BIT, static_cast<uint32_t>(DPUF1),
-     static_cast<uint32_t>(AXI0)},
+    {MPP_DPP_GFS, MPP_LOGICAL_DPP_GFS, "DPP_GFS7", 7, 0, HWC_RESERVE_DISPLAY_MINOR_BIT,
+     static_cast<uint32_t>(DPUF1), static_cast<uint32_t>(AXI0)},
 };
 
 static const std::array<exynos_display_t, 3> AVAILABLE_DISPLAY_UNITS = {
@@ -162,46 +146,36 @@ private:
   tdm_attr_t attr;
   DPUblockId_t DPUBlockNo;
   AXIPortId_t axiId;
-  int dispType;
   ConstraintRev_t constraintRev;
 
 public:
-  HWResourceIndexes(const tdm_attr_t &_attr, const DPUblockId_t &_DPUBlockNo,
-                    const AXIPortId_t &_axiId, const int &_dispType,
-                    const ConstraintRev_t &_constraintRev)
-      : attr(_attr), DPUBlockNo(_DPUBlockNo), axiId(_axiId),
-        dispType(_dispType), constraintRev(_constraintRev) {}
-  bool operator<(const HWResourceIndexes &rhs) const {
-    if (attr != rhs.attr)
-      return attr < rhs.attr;
+    HWResourceIndexes(const tdm_attr_t& _attr, const DPUblockId_t& _DPUBlockNo,
+                      const AXIPortId_t& _axiId, const ConstraintRev_t& _constraintRev)
+          : attr(_attr), DPUBlockNo(_DPUBlockNo), axiId(_axiId), constraintRev(_constraintRev) {}
+    bool operator<(const HWResourceIndexes& rhs) const {
+        if (attr != rhs.attr) return attr < rhs.attr;
 
-    if (DPUBlockNo != rhs.DPUBlockNo)
-      return DPUBlockNo < rhs.DPUBlockNo;
+        if (DPUBlockNo != rhs.DPUBlockNo) return DPUBlockNo < rhs.DPUBlockNo;
 
-    if (dispType != rhs.dispType)
-      return dispType < rhs.dispType;
+        if (axiId != AXI_DONT_CARE && rhs.axiId != AXI_DONT_CARE && axiId != rhs.axiId)
+            return axiId < rhs.axiId;
 
-    if (axiId != AXI_DONT_CARE && rhs.axiId != AXI_DONT_CARE &&
-        axiId != rhs.axiId)
-      return axiId < rhs.axiId;
+        if (constraintRev != CONSTRAINT_NONE) return constraintRev < rhs.constraintRev;
 
-    if (constraintRev != CONSTRAINT_NONE)
-      return constraintRev < rhs.constraintRev;
-
-    return false;
-  }
+        return false;
+    }
   String8 toString8() const {
     String8 log;
-    log.appendFormat(
-        "attr=%d,DPUBlockNo=%d,axiId=%d,dispType=%d,constraintRev=%d", attr,
-        DPUBlockNo, axiId, dispType, constraintRev);
+    log.appendFormat("attr=%d,DPUBlockNo=%d,axiId=%d,constraintRev=%d", attr, DPUBlockNo, axiId,
+                     constraintRev);
     return log;
   }
 };
 
 typedef struct HWResourceAmounts {
-  int maxAssignedAmount;
-  int totalAmount;
+  int mainAmount;
+  int minorAmount;
+  int total;
 } HWResourceAmounts_t;
 
 /* Note :
@@ -209,174 +183,31 @@ typedef struct HWResourceAmounts {
  * Primary amount = total - others */
 
 const std::map<HWResourceIndexes, HWResourceAmounts_t> HWResourceTables = {
-    {HWResourceIndexes(TDM_ATTR_SRAM_AMOUNT, DPUF0, AXI_DONT_CARE,
-                       HWC_DISPLAY_PRIMARY, CONSTRAINT_NONE),
-     {80, 80}},
-    {HWResourceIndexes(TDM_ATTR_SRAM_AMOUNT, DPUF0, AXI_DONT_CARE,
-                       HWC_DISPLAY_EXTERNAL, CONSTRAINT_NONE),
-     {0, 80}},
-    {HWResourceIndexes(TDM_ATTR_SRAM_AMOUNT, DPUF0, AXI_DONT_CARE,
-                       HWC_DISPLAY_VIRTUAL, CONSTRAINT_NONE),
-     {0, 80}},
-    {HWResourceIndexes(TDM_ATTR_SRAM_AMOUNT, DPUF1, AXI_DONT_CARE,
-                       HWC_DISPLAY_PRIMARY, CONSTRAINT_NONE),
-     {80, 80}},
-    {HWResourceIndexes(TDM_ATTR_SRAM_AMOUNT, DPUF1, AXI_DONT_CARE,
-                       HWC_DISPLAY_EXTERNAL, CONSTRAINT_NONE),
-     {80, 80}},
-    {HWResourceIndexes(TDM_ATTR_SRAM_AMOUNT, DPUF1, AXI_DONT_CARE,
-                       HWC_DISPLAY_VIRTUAL, CONSTRAINT_NONE),
-     {80, 80}},
-
-    {HWResourceIndexes(TDM_ATTR_SCALE, DPUF0, AXI_DONT_CARE,
-                       HWC_DISPLAY_PRIMARY, CONSTRAINT_NONE),
-     {2, 2}},
-    {HWResourceIndexes(TDM_ATTR_SCALE, DPUF0, AXI_DONT_CARE,
-                       HWC_DISPLAY_EXTERNAL, CONSTRAINT_NONE),
-     {0, 2}},
-    {HWResourceIndexes(TDM_ATTR_SCALE, DPUF0, AXI_DONT_CARE,
-                       HWC_DISPLAY_VIRTUAL, CONSTRAINT_NONE),
-     {0, 2}},
-    {HWResourceIndexes(TDM_ATTR_SCALE, DPUF1, AXI_DONT_CARE,
-                       HWC_DISPLAY_PRIMARY, CONSTRAINT_NONE),
-     {2, 2}},
-    {HWResourceIndexes(TDM_ATTR_SCALE, DPUF1, AXI_DONT_CARE,
-                       HWC_DISPLAY_EXTERNAL, CONSTRAINT_NONE),
-     {2, 2}},
-    {HWResourceIndexes(TDM_ATTR_SCALE, DPUF1, AXI_DONT_CARE,
-                       HWC_DISPLAY_VIRTUAL, CONSTRAINT_NONE),
-     {2, 2}},
-
-    {HWResourceIndexes(TDM_ATTR_SBWC, DPUF0, AXI_DONT_CARE, HWC_DISPLAY_PRIMARY,
-                       CONSTRAINT_NONE),
-     {2, 2}},
-    {HWResourceIndexes(TDM_ATTR_SBWC, DPUF0, AXI_DONT_CARE,
-                       HWC_DISPLAY_EXTERNAL, CONSTRAINT_NONE),
-     {0, 2}},
-    {HWResourceIndexes(TDM_ATTR_SBWC, DPUF0, AXI_DONT_CARE, HWC_DISPLAY_VIRTUAL,
-                       CONSTRAINT_NONE),
-     {0, 2}},
-    {HWResourceIndexes(TDM_ATTR_SBWC, DPUF1, AXI_DONT_CARE, HWC_DISPLAY_PRIMARY,
-                       CONSTRAINT_NONE),
-     {2, 2}},
-    {HWResourceIndexes(TDM_ATTR_SBWC, DPUF1, AXI_DONT_CARE,
-                       HWC_DISPLAY_EXTERNAL, CONSTRAINT_NONE),
-     {2, 2}},
-    {HWResourceIndexes(TDM_ATTR_SBWC, DPUF1, AXI_DONT_CARE, HWC_DISPLAY_VIRTUAL,
-                       CONSTRAINT_NONE),
-     {2, 2}},
-
-    {HWResourceIndexes(TDM_ATTR_AFBC, DPUF0, AXI_DONT_CARE, HWC_DISPLAY_PRIMARY,
-                       CONSTRAINT_NONE),
-     {4, 4}},
-    {HWResourceIndexes(TDM_ATTR_AFBC, DPUF0, AXI_DONT_CARE,
-                       HWC_DISPLAY_EXTERNAL, CONSTRAINT_NONE),
-     {0, 4}},
-    {HWResourceIndexes(TDM_ATTR_AFBC, DPUF0, AXI_DONT_CARE, HWC_DISPLAY_VIRTUAL,
-                       CONSTRAINT_NONE),
-     {0, 4}},
-    {HWResourceIndexes(TDM_ATTR_AFBC, DPUF1, AXI_DONT_CARE, HWC_DISPLAY_PRIMARY,
-                       CONSTRAINT_NONE),
-     {4, 4}},
-    {HWResourceIndexes(TDM_ATTR_AFBC, DPUF1, AXI_DONT_CARE,
-                       HWC_DISPLAY_EXTERNAL, CONSTRAINT_NONE),
-     {4, 4}},
-    {HWResourceIndexes(TDM_ATTR_AFBC, DPUF1, AXI_DONT_CARE, HWC_DISPLAY_VIRTUAL,
-                       CONSTRAINT_NONE),
-     {4, 4}},
-
-    {HWResourceIndexes(TDM_ATTR_ITP, DPUF0, AXI_DONT_CARE, HWC_DISPLAY_PRIMARY,
-                       CONSTRAINT_NONE),
-     {4, 4}},
-    {HWResourceIndexes(TDM_ATTR_ITP, DPUF0, AXI_DONT_CARE, HWC_DISPLAY_EXTERNAL,
-                       CONSTRAINT_NONE),
-     {0, 4}},
-    {HWResourceIndexes(TDM_ATTR_ITP, DPUF0, AXI_DONT_CARE, HWC_DISPLAY_VIRTUAL,
-                       CONSTRAINT_NONE),
-     {0, 4}},
-    {HWResourceIndexes(TDM_ATTR_ITP, DPUF1, AXI_DONT_CARE, HWC_DISPLAY_PRIMARY,
-                       CONSTRAINT_NONE),
-     {4, 4}},
-    {HWResourceIndexes(TDM_ATTR_ITP, DPUF1, AXI_DONT_CARE, HWC_DISPLAY_EXTERNAL,
-                       CONSTRAINT_NONE),
-     {4, 4}},
-    {HWResourceIndexes(TDM_ATTR_ITP, DPUF1, AXI_DONT_CARE, HWC_DISPLAY_VIRTUAL,
-                       CONSTRAINT_NONE),
-     {4, 4}},
-
-    {HWResourceIndexes(TDM_ATTR_ROT_90, DPUF0, AXI_DONT_CARE,
-                       HWC_DISPLAY_PRIMARY, CONSTRAINT_NONE),
-     {2, 2}},
-    {HWResourceIndexes(TDM_ATTR_ROT_90, DPUF0, AXI_DONT_CARE,
-                       HWC_DISPLAY_EXTERNAL, CONSTRAINT_NONE),
-     {0, 2}},
-    {HWResourceIndexes(TDM_ATTR_ROT_90, DPUF0, AXI_DONT_CARE,
-                       HWC_DISPLAY_VIRTUAL, CONSTRAINT_NONE),
-     {0, 2}},
-    {HWResourceIndexes(TDM_ATTR_ROT_90, DPUF1, AXI_DONT_CARE,
-                       HWC_DISPLAY_PRIMARY, CONSTRAINT_NONE),
-     {2, 2}},
-    {HWResourceIndexes(TDM_ATTR_ROT_90, DPUF1, AXI_DONT_CARE,
-                       HWC_DISPLAY_EXTERNAL, CONSTRAINT_NONE),
-     {2, 2}},
-    {HWResourceIndexes(TDM_ATTR_ROT_90, DPUF1, AXI_DONT_CARE,
-                       HWC_DISPLAY_VIRTUAL, CONSTRAINT_NONE),
-     {2, 2}},
-
-    {HWResourceIndexes(TDM_ATTR_WCG, DPUF0, AXI_DONT_CARE, HWC_DISPLAY_PRIMARY,
-                       CONSTRAINT_A0),
-     {2, 2}},
-    {HWResourceIndexes(TDM_ATTR_WCG, DPUF0, AXI_DONT_CARE, HWC_DISPLAY_EXTERNAL,
-                       CONSTRAINT_A0),
-     {0, 2}},
-    {HWResourceIndexes(TDM_ATTR_WCG, DPUF0, AXI_DONT_CARE, HWC_DISPLAY_VIRTUAL,
-                       CONSTRAINT_A0),
-     {0, 2}},
-    {HWResourceIndexes(TDM_ATTR_WCG, DPUF1, AXI_DONT_CARE, HWC_DISPLAY_PRIMARY,
-                       CONSTRAINT_A0),
-     {2, 2}},
-    {HWResourceIndexes(TDM_ATTR_WCG, DPUF1, AXI_DONT_CARE, HWC_DISPLAY_EXTERNAL,
-                       CONSTRAINT_A0),
-     {2, 2}},
-    {HWResourceIndexes(TDM_ATTR_WCG, DPUF1, AXI_DONT_CARE, HWC_DISPLAY_VIRTUAL,
-                       CONSTRAINT_A0),
-     {2, 2}},
-    {HWResourceIndexes(TDM_ATTR_WCG, DPUF0, AXI0, HWC_DISPLAY_PRIMARY,
-                       CONSTRAINT_B0),
-     {2, 2}},
-    {HWResourceIndexes(TDM_ATTR_WCG, DPUF0, AXI0, HWC_DISPLAY_EXTERNAL,
-                       CONSTRAINT_B0),
-     {0, 2}},
-    {HWResourceIndexes(TDM_ATTR_WCG, DPUF0, AXI0, HWC_DISPLAY_VIRTUAL,
-                       CONSTRAINT_B0),
-     {0, 2}},
-    {HWResourceIndexes(TDM_ATTR_WCG, DPUF0, AXI1, HWC_DISPLAY_PRIMARY,
-                       CONSTRAINT_B0),
-     {2, 2}},
-    {HWResourceIndexes(TDM_ATTR_WCG, DPUF0, AXI1, HWC_DISPLAY_EXTERNAL,
-                       CONSTRAINT_B0),
-     {0, 2}},
-    {HWResourceIndexes(TDM_ATTR_WCG, DPUF0, AXI1, HWC_DISPLAY_VIRTUAL,
-                       CONSTRAINT_B0),
-     {0, 2}},
-    {HWResourceIndexes(TDM_ATTR_WCG, DPUF1, AXI0, HWC_DISPLAY_PRIMARY,
-                       CONSTRAINT_B0),
-     {2, 2}},
-    {HWResourceIndexes(TDM_ATTR_WCG, DPUF1, AXI0, HWC_DISPLAY_EXTERNAL,
-                       CONSTRAINT_B0),
-     {2, 2}},
-    {HWResourceIndexes(TDM_ATTR_WCG, DPUF1, AXI0, HWC_DISPLAY_VIRTUAL,
-                       CONSTRAINT_B0),
-     {2, 2}},
-    {HWResourceIndexes(TDM_ATTR_WCG, DPUF1, AXI1, HWC_DISPLAY_PRIMARY,
-                       CONSTRAINT_B0),
-     {2, 2}},
-    {HWResourceIndexes(TDM_ATTR_WCG, DPUF1, AXI1, HWC_DISPLAY_EXTERNAL,
-                       CONSTRAINT_B0),
-     {2, 2}},
-    {HWResourceIndexes(TDM_ATTR_WCG, DPUF1, AXI1, HWC_DISPLAY_VIRTUAL,
-                       CONSTRAINT_B0),
-     {2, 2}},
+    // SRAM
+    {HWResourceIndexes(TDM_ATTR_SRAM_AMOUNT, DPUF0, AXI_DONT_CARE, CONSTRAINT_NONE), {50, 30, 80}},
+    {HWResourceIndexes(TDM_ATTR_SRAM_AMOUNT, DPUF1, AXI_DONT_CARE, CONSTRAINT_NONE), {50, 30, 80}},
+    // SCALE
+    {HWResourceIndexes(TDM_ATTR_SCALE, DPUF0, AXI_DONT_CARE, CONSTRAINT_NONE), {2, 0, 2}},
+    {HWResourceIndexes(TDM_ATTR_SCALE, DPUF1, AXI_DONT_CARE, CONSTRAINT_NONE), {1, 1, 2}},
+    // SBWC
+    {HWResourceIndexes(TDM_ATTR_SBWC, DPUF0, AXI_DONT_CARE, CONSTRAINT_NONE), {2, 0, 2}},
+    {HWResourceIndexes(TDM_ATTR_SBWC, DPUF1, AXI_DONT_CARE, CONSTRAINT_NONE), {0, 2, 2}},
+    // AFBC
+    {HWResourceIndexes(TDM_ATTR_AFBC, DPUF0, AXI_DONT_CARE, CONSTRAINT_NONE), {3, 1, 4}},
+    {HWResourceIndexes(TDM_ATTR_AFBC, DPUF1, AXI_DONT_CARE, CONSTRAINT_NONE), {1, 3, 4}},
+    // ITP
+    {HWResourceIndexes(TDM_ATTR_ITP, DPUF0, AXI_DONT_CARE, CONSTRAINT_NONE), {3, 1, 4}},
+    {HWResourceIndexes(TDM_ATTR_ITP, DPUF1, AXI_DONT_CARE, CONSTRAINT_NONE), {1, 3, 4}},
+    // ROT_90
+    {HWResourceIndexes(TDM_ATTR_ROT_90, DPUF0, AXI_DONT_CARE, CONSTRAINT_NONE), {1, 1, 2}},
+    {HWResourceIndexes(TDM_ATTR_ROT_90, DPUF1, AXI_DONT_CARE, CONSTRAINT_NONE), {1, 1, 2}},
+    // WCG
+    {HWResourceIndexes(TDM_ATTR_WCG, DPUF0, AXI_DONT_CARE, CONSTRAINT_A0), {2, 0, 2}},
+    {HWResourceIndexes(TDM_ATTR_WCG, DPUF1, AXI_DONT_CARE, CONSTRAINT_A0), {0, 2, 2}},
+    {HWResourceIndexes(TDM_ATTR_WCG, DPUF0, AXI0, CONSTRAINT_B0), {2, 0, 2}},
+    {HWResourceIndexes(TDM_ATTR_WCG, DPUF0, AXI1, CONSTRAINT_B0), {2, 0, 2}},
+    {HWResourceIndexes(TDM_ATTR_WCG, DPUF1, AXI0, CONSTRAINT_B0), {0, 2, 2}},
+    {HWResourceIndexes(TDM_ATTR_WCG, DPUF1, AXI1, CONSTRAINT_B0), {0, 2, 2}},
 };
 
 typedef enum lbWidthIndex {
