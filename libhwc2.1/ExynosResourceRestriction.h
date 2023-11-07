@@ -91,39 +91,39 @@ static ppc_table ppc_table_map = {
        table */
     /* In case of Scale-Up, G2D should use same PPC table */
     {PPC_IDX(MPP_G2D, PPC_FORMAT_YUV420, PPC_ROT_NO),
-     {2.2, 2.4, 4.3, 5.0, 4.5, 3.4, 3.4}},
+     {3.5, 4.1, 5.1, 5.2, 4.7, 3.6, 3.6}},
     {PPC_IDX(MPP_G2D, PPC_FORMAT_YUV420, PPC_ROT),
-     {2.2, 3.6, 4.2, 4.3, 3.6, 2.0, 2.0}},
+     {2.2, 4.0, 4.6, 5.1, 4.5, 2.1, 2.1}},
 
     {PPC_IDX(MPP_G2D, PPC_FORMAT_YUV422, PPC_ROT_NO),
-     {2.2, 2.4, 4.3, 5.0, 4.5, 3.4, 3.4}},
+     {3.5, 4.1, 5.1, 5.2, 4.7, 3.6, 3.6}},
     {PPC_IDX(MPP_G2D, PPC_FORMAT_YUV422, PPC_ROT),
-     {2.2, 3.6, 4.2, 4.3, 3.6, 2.0, 2.0}},
+     {2.2, 4.0, 4.6, 5.1, 4.5, 2.1, 2.1}},
 
     {PPC_IDX(MPP_G2D, PPC_FORMAT_P010, PPC_ROT_NO),
-     {2.2, 2.4, 4.3, 5.0, 4.5, 3.4, 3.4}},
+     {3.5, 4.1, 5.1, 5.2, 4.7, 3.6, 3.6}},
     {PPC_IDX(MPP_G2D, PPC_FORMAT_P010, PPC_ROT),
-     {2.2, 3.6, 4.2, 4.3, 3.6, 2.0, 2.0}},
+     {2.2, 4.0, 4.6, 5.1, 4.5, 2.1, 2.1}},
 
     {PPC_IDX(MPP_G2D, PPC_FORMAT_RGB32, PPC_ROT_NO),
-     {3.6, 2.0, 2.9, 2.3, 2.9, 3.9, 3.9}},
+     {3.7, 3.3, 3.3, 3.4, 3.6, 3.9, 3.9}},
     {PPC_IDX(MPP_G2D, PPC_FORMAT_RGB32, PPC_ROT),
-     {3.5, 3.2, 3.5, 3.4, 3.8, 3.8, 3.8}},
+     {3.2, 3.0, 3.1, 3.4, 3.6, 3.9, 3.9}},
 
     {PPC_IDX(MPP_G2D, PPC_FORMAT_SBWC, PPC_ROT_NO),
-     {3.2, 2.8, 3.0, 3.5, 2.9, 3.3, 3.3}},
+     {3.3, 3.2, 3.3, 3.8, 3.1, 3.4, 3.4}},
     {PPC_IDX(MPP_G2D, PPC_FORMAT_SBWC, PPC_ROT),
-     {2.2, 3.1, 3.2, 3.2, 2.8, 1.9, 1.9}},
+     {2.4, 3.2, 3.4, 3.9, 3.1, 2.1, 2.1}},
 
     {PPC_IDX(MPP_G2D, PPC_FORMAT_AFBC_RGB, PPC_ROT_NO),
-     {3.1, 2.8, 2.6, 3.0, 3.7, 3.0, 3.0}},
+     {3.4, 2.9, 2.8, 3.2, 3.8, 3.1, 3.1}},
     {PPC_IDX(MPP_G2D, PPC_FORMAT_AFBC_RGB, PPC_ROT),
-     {2.1, 3.2, 3.2, 3.5, 3.4, 3.8, 3.8}},
+     {3.9, 2.9, 2.9, 3.3, 3.2, 3.8, 3.8}},
 
     {PPC_IDX(MPP_G2D, PPC_FORMAT_AFBC_YUV, PPC_ROT_NO),
-     {3.0, 3.3, 3.1, 3.2, 3.4, 3.3, 3.3}},
+     {3.3, 3.4, 3.4, 3.8, 3.8, 3.2, 3.2}},
     {PPC_IDX(MPP_G2D, PPC_FORMAT_AFBC_YUV, PPC_ROT),
-     {2.2, 3.0, 3.4, 3.6, 3.6, 2.0, 2.0}},
+     {3.3, 3.3, 3.7, 3.8, 3.9, 2.1, 2.1}},
 };
 
 } // namespace zumapro
