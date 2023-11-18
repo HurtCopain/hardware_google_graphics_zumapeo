@@ -15,7 +15,7 @@
 LOCAL_SRC_FILES += \
 	../../gs101/libhwc2.1/libdevice/ExynosDeviceModule.cpp \
 	../../gs101/libhwc2.1/libmaindisplay/ExynosPrimaryDisplayModule.cpp \
-	../../zuma/libhwc2.1/libmaindisplay/ExynosPrimaryDisplayModule.cpp \
+	../../zumapro/libhwc2.1/libmaindisplay/ExynosPrimaryDisplayModule.cpp \
 	../../gs101/libhwc2.1/libresource/ExynosMPPModule.cpp \
 	../../gs201/libhwc2.1/libresource/ExynosMPPModule.cpp \
 	../../zuma/libhwc2.1/libresource/ExynosMPPModule.cpp \
