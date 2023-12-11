@@ -63,6 +63,7 @@ ExynosPrimaryDisplayModule::OperationRateManager::OperationRateManager(
         mDisplayRefreshRate(0),
         mDisplayLastDbv(0),
         mDisplayDbv(0),
+        mDisplayHsSwitchMinDbv(0),
         mDisplayPowerMode(HWC2_POWER_MODE_ON),
         mDisplayLowBatteryModeEnabled(false),
         mHistogramQueryWorker(nullptr) {
@@ -75,6 +76,8 @@ ExynosPrimaryDisplayModule::OperationRateManager::OperationRateManager(
             static_cast<float>(property_get_int32("vendor.primarydisplay.op.hist_delta_th", 0));
     if (histDeltaTh) {
         mHistogramQueryWorker = std::make_unique<HistogramQueryWorker>(this, histDeltaTh);
+        mDisplayHsSwitchMinDbv =
+                property_get_int32("vendor.primarydisplay.op.hs_switch_min_dbv", 0);
     }
 }
 
@@ -241,7 +244,13 @@ int32_t ExynosPrimaryDisplayModule::OperationRateManager::updateOperationRateLoc
                     mHistogramQueryWorker->stopQuery();
                 }
                 if (!isDbvInBlockingZone) {
-                    desiredOpRate = mDisplayRefreshRate;
+                    if (!mDisplayHsSwitchMinDbv || dbv < mDisplayHsSwitchMinDbv) {
+                        // delay the switch of NS->HS until conditions are satisfied
+                        desiredOpRate = mDisplayRefreshRate;
+                    } else if (mDisplayRefreshRate > mDisplayNsOperationRate) {
+                        // will switch to HS immediately
+                        effectiveOpRate = mDisplayHsOperationRate;
+                    }
                 }
             }
         }
@@ -294,10 +303,11 @@ int32_t ExynosPrimaryDisplayModule::OperationRateManager::updateOperationRateLoc
     }
 
     OP_MANAGER_LOGI(mDisplay,
-                    "Target@%d(desired:%d) | Refresh@%d(peak:%d), Battery:%s, DBV:%d(NsMin:%d)",
+                    "Target@%d(desired:%d) | Refresh@%d(peak:%d), Battery:%s, DBV:%d(NsMin:%d, "
+                    "HsSwitchMin:%d)",
                     mDisplayTargetOperationRate, desiredOpRate, mDisplayRefreshRate,
                     mDisplayPeakRefreshRate, mDisplayLowBatteryModeEnabled ? "Low" : "OK",
-                    mDisplayLastDbv, mDisplayNsMinDbv);
+                    mDisplayLastDbv, mDisplayNsMinDbv, mDisplayHsSwitchMinDbv);
     return ret;
 }
 

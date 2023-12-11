@@ -101,6 +101,7 @@ protected:
         int32_t mDisplayRefreshRate;
         int32_t mDisplayLastDbv;
         int32_t mDisplayDbv;
+        int32_t mDisplayHsSwitchMinDbv;
         std::optional<hwc2_power_mode_t> mDisplayPowerMode;
         bool mDisplayLowBatteryModeEnabled;
         Mutex mLock;
