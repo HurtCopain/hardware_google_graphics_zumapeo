@@ -23,18 +23,14 @@
 #include "ExynosHWCHelper.h"
 #include "ExynosPrimaryDisplayModule.h"
 
-#define OP_MANAGER_LOGD(disp, msg, ...)                                                 \
-    ALOGD("[%s] OperationRateManager::%s:" msg, (disp)->mDisplayName.c_str(), __func__, \
-          ##__VA_ARGS__)
-#define OP_MANAGER_LOGI(disp, msg, ...)                                                 \
-    ALOGI("[%s] OperationRateManager::%s:" msg, (disp)->mDisplayName.c_str(), __func__, \
-          ##__VA_ARGS__)
-#define OP_MANAGER_LOGW(disp, msg, ...)                                                 \
-    ALOGW("[%s] OperationRateManager::%s:" msg, (disp)->mDisplayName.c_str(), __func__, \
-          ##__VA_ARGS__)
-#define OP_MANAGER_LOGE(disp, msg, ...)                                                 \
-    ALOGE("[%s] OperationRateManager::%s:" msg, (disp)->mDisplayName.c_str(), __func__, \
-          ##__VA_ARGS__)
+#define DISP_STR(disp) (disp)->mDisplayName.c_str()
+
+#define OP_MANAGER_LOGI(disp, msg, ...) \
+    ALOGI("[%s] OperationRateManager::%s:" msg, DISP_STR(disp), __func__, ##__VA_ARGS__)
+#define OP_MANAGER_LOGW(disp, msg, ...) \
+    ALOGW("[%s] OperationRateManager::%s:" msg, DISP_STR(disp), __func__, ##__VA_ARGS__)
+#define OP_MANAGER_LOGE(disp, msg, ...) \
+    ALOGE("[%s] OperationRateManager::%s:" msg, DISP_STR(disp), __func__, ##__VA_ARGS__)
 
 static constexpr int64_t kQueryPeriodNanosecs = std::chrono::nanoseconds(100ms).count();
 
@@ -97,7 +93,8 @@ int32_t ExynosPrimaryDisplayModule::OperationRateManager::onPeakRefreshRate(uint
     char rateStr[PROP_VALUE_MAX];
     std::sprintf(rateStr, "%d", rate);
 
-    OP_MANAGER_LOGD(mDisplay, "rate=%d", rate);
+    DISPLAY_STR_LOGD(DISP_STR(mDisplay), eDebugOperationRate, "OperationRateManager: rate=%d",
+                     rate);
 
     Mutex::Autolock lock(mLock);
     if (property_set("persist.vendor.primarydisplay.op.peak_refresh_rate", rateStr) < 0) {
@@ -109,7 +106,7 @@ int32_t ExynosPrimaryDisplayModule::OperationRateManager::onPeakRefreshRate(uint
 }
 
 int32_t ExynosPrimaryDisplayModule::OperationRateManager::onLowPowerMode(bool enabled) {
-    OP_MANAGER_LOGD(mDisplay, "enabled=%d", enabled);
+    DISPLAY_STR_LOGD(DISP_STR(mDisplay), eDebugOperationRate, "enabled=%d", enabled);
 
     Mutex::Autolock lock(mLock);
     mDisplayLowBatteryModeEnabled = enabled;
@@ -124,7 +121,8 @@ int32_t ExynosPrimaryDisplayModule::OperationRateManager::onConfig(hwc2_config_t
         return 0;
     }
     mDisplayRefreshRate = mDisplay->getRefreshRate(cfg);
-    OP_MANAGER_LOGD(mDisplay, "rate=%d", mDisplayRefreshRate);
+    DISPLAY_STR_LOGD(DISP_STR(mDisplay), eDebugOperationRate, "OperationRateManager: rate=%d",
+                     mDisplayRefreshRate);
     updateOperationRateLocked(DispOpCondition::SET_CONFIG);
     return 0;
 }
@@ -132,7 +130,7 @@ int32_t ExynosPrimaryDisplayModule::OperationRateManager::onConfig(hwc2_config_t
 int32_t ExynosPrimaryDisplayModule::OperationRateManager::onBrightness(uint32_t dbv) {
     Mutex::Autolock lock(mLock);
     if (dbv == 0 || mDisplayLastDbv == dbv) return 0;
-    OP_MANAGER_LOGD(mDisplay, "dbv=%d", dbv);
+    DISPLAY_STR_LOGD(DISP_STR(mDisplay), eDebugOperationRate, "OperationRateManager: dbv=%d", dbv);
     mDisplayDbv = dbv;
 
     /*
@@ -153,8 +151,9 @@ int32_t ExynosPrimaryDisplayModule::OperationRateManager::onBrightness(uint32_t 
             mDisplayPeakRefreshRate = vendorPeakRefreshRate;
         }
 
-        OP_MANAGER_LOGD(mDisplay, "peak_refresh_rate=%d[vendor: %d|persist %d]",
-                        mDisplayPeakRefreshRate, vendorPeakRefreshRate, persistPeakRefreshRate);
+        DISPLAY_STR_LOGD(DISP_STR(mDisplay), eDebugOperationRate,
+                         "OperationRateManager: peak_refresh_rate=%d[vendor: %d|persist %d]",
+                         mDisplayPeakRefreshRate, vendorPeakRefreshRate, persistPeakRefreshRate);
     }
 
     return updateOperationRateLocked(DispOpCondition::SET_DBV);
@@ -170,7 +169,8 @@ int32_t ExynosPrimaryDisplayModule::OperationRateManager::onPowerMode(int32_t mo
         modeName = "LP";
     }
 
-    OP_MANAGER_LOGD(mDisplay, "mode=%s", modeName.c_str());
+    DISPLAY_STR_LOGD(DISP_STR(mDisplay), eDebugOperationRate, "OperationRateManager: mode=%s",
+                     modeName.c_str());
 
     Mutex::Autolock lock(mLock);
     mDisplayPowerMode = static_cast<hwc2_power_mode_t>(mode);
@@ -179,7 +179,8 @@ int32_t ExynosPrimaryDisplayModule::OperationRateManager::onPowerMode(int32_t mo
 
 int32_t ExynosPrimaryDisplayModule::OperationRateManager::onHistogram() {
     Mutex::Autolock lock(mLock);
-    OP_MANAGER_LOGD(mDisplay, "reach to the luma delta threshold");
+    DISPLAY_STR_LOGD(DISP_STR(mDisplay), eDebugOperationRate,
+                     "histogram reach to the luma delta threshold");
     return updateOperationRateLocked(DispOpCondition::HISTOGRAM_DELTA);
 }
 
@@ -207,7 +208,9 @@ int32_t ExynosPrimaryDisplayModule::OperationRateManager::updateOperationRateLoc
     }
     // check blocking zone
     if (isDbvInBlockingZone) {
-        OP_MANAGER_LOGD(mDisplay, "in blocking zone (dbv %d, min %d)", dbv, mDisplayNsMinDbv);
+        DISPLAY_STR_LOGD(DISP_STR(mDisplay), eDebugOperationRate,
+                         "OperationRateManager: in blocking zone (dbv %d, min %d)", dbv,
+                         mDisplayNsMinDbv);
         desiredOpRate = mDisplayHsOperationRate;
     }
 
@@ -218,7 +221,8 @@ int32_t ExynosPrimaryDisplayModule::OperationRateManager::updateOperationRateLoc
         effectiveOpRate = desiredOpRate;
     } else if (mDisplayPowerMode != HWC2_POWER_MODE_ON) {
         if (mHistogramQueryWorker) {
-            OP_MANAGER_LOGD(mDisplay, "stopQuery due to power off");
+            DISPLAY_STR_LOGD(DISP_STR(mDisplay), eDebugOperationRate,
+                             "histogram stopQuery due to power off");
             mHistogramQueryWorker->stopQuery();
         }
         return ret;
@@ -232,7 +236,8 @@ int32_t ExynosPrimaryDisplayModule::OperationRateManager::updateOperationRateLoc
                 }
             } else {
                 if (mDisplayRefreshRate == mDisplayTargetOperationRate) {
-                    OP_MANAGER_LOGD(mDisplay, "stopQuery due to the same config");
+                    DISPLAY_STR_LOGD(DISP_STR(mDisplay), eDebugOperationRate,
+                                     "histogram stopQuery due to the same config");
                     mHistogramQueryWorker->stopQuery();
                 }
                 if (!isDbvInBlockingZone) {
@@ -255,14 +260,16 @@ int32_t ExynosPrimaryDisplayModule::OperationRateManager::updateOperationRateLoc
         } else {
             if (delta > kBrightnessDeltaThreshold) {
                 effectiveOpRate = desiredOpRate;
-                OP_MANAGER_LOGD(mDisplay, "stopQuery due to dbv delta");
+                DISPLAY_STR_LOGD(DISP_STR(mDisplay), eDebugOperationRate,
+                                 "histogram stopQuery due to dbv delta");
                 mHistogramQueryWorker->stopQuery();
             }
         }
         mDisplayLastDbv = dbv;
         if (effectiveOpRate > kLowPowerOperationRate &&
             (effectiveOpRate != mDisplayTargetOperationRate)) {
-            OP_MANAGER_LOGD(mDisplay, "brightness delta=%d", delta);
+            DISPLAY_STR_LOGD(DISP_STR(mDisplay), eDebugOperationRate,
+                             "OperationRateManager: brightness delta=%d", delta);
         } else {
             if (!mHistogramQueryWorker || desiredOpRate == mDisplayNsOperationRate) {
                 return ret;
@@ -282,7 +289,7 @@ int32_t ExynosPrimaryDisplayModule::OperationRateManager::updateOperationRateLoc
     }
 
     if (mHistogramQueryWorker && mDisplayTargetOperationRate != desiredOpRate) {
-        OP_MANAGER_LOGD(mDisplay, "startQuery");
+        DISPLAY_STR_LOGD(DISP_STR(mDisplay), eDebugOperationRate, "histogram startQuery");
         mHistogramQueryWorker->startQuery();
     }
 
@@ -413,9 +420,9 @@ bool ExynosPrimaryDisplayModule::OperationRateManager::HistogramQueryWorker::
     }
 
     // histogram will change roi automatically
-    OP_MANAGER_LOGI(mOpRateManager->mDisplay, "histogram %dx%d->%dx%d", mConfig.roi.right,
-                    mConfig.roi.bottom, mOpRateManager->mDisplay->mXres,
-                    mOpRateManager->mDisplay->mYres);
+    DISPLAY_STR_LOGD(DISP_STR(mOpRateManager->mDisplay), eDebugOperationRate,
+                     "histogram %dx%d->%dx%d", mConfig.roi.right, mConfig.roi.bottom,
+                     mOpRateManager->mDisplay->mXres, mOpRateManager->mDisplay->mYres);
     return true;
 }
 
@@ -447,7 +454,8 @@ void ExynosPrimaryDisplayModule::OperationRateManager::HistogramQueryWorker::Rou
     // WaitForSignalOrExitLocked() needs to be enclosed by Lock() and Unlock()
     Lock();
     if (!mQueryMode) {
-        OP_MANAGER_LOGD(mOpRateManager->mDisplay, "histogram wait for signal");
+        DISPLAY_STR_LOGD(DISP_STR(mOpRateManager->mDisplay), eDebugOperationRate,
+                         "histogram wait for signal");
         ret = WaitForSignalOrExitLocked();
         mQueryMode = true;
         mPrevHistogramLuma = 0;
@@ -486,6 +494,9 @@ void ExynosPrimaryDisplayModule::OperationRateManager::HistogramQueryWorker::Rou
 
         float luma = lumaSum / count;
         float lumaDelta = abs(luma - mPrevHistogramLuma);
+        DISPLAY_STR_LOGD(DISP_STR(mOpRateManager->mDisplay), eDebugOperationRate,
+                         "histogram luma %f, delta %f, th %f", luma, lumaDelta,
+                         mHistogramLumaDeltaThreshold);
         if (mPrevHistogramLuma && lumaDelta > mHistogramLumaDeltaThreshold) {
             mQueryMode = false;
             mOpRateManager->onHistogram();
