@@ -238,7 +238,7 @@ int32_t ExynosPrimaryDisplayModule::OperationRateManager::updateOperationRateLoc
                     effectiveOpRate = mDisplayHsOperationRate;
                 }
             } else {
-                if (mDisplayRefreshRate == mDisplayTargetOperationRate) {
+                if (mDisplayRefreshRate == mDisplayTargetOperationRate && !isDbvInBlockingZone) {
                     DISPLAY_STR_LOGD(DISP_STR(mDisplay), eDebugOperationRate,
                                      "histogram stopQuery due to the same config");
                     mHistogramQueryWorker->stopQuery();
@@ -280,7 +280,8 @@ int32_t ExynosPrimaryDisplayModule::OperationRateManager::updateOperationRateLoc
             DISPLAY_STR_LOGD(DISP_STR(mDisplay), eDebugOperationRate,
                              "OperationRateManager: brightness delta=%d", delta);
         } else {
-            if (!mHistogramQueryWorker || desiredOpRate == mDisplayNsOperationRate) {
+            if (!mHistogramQueryWorker ||
+                (desiredOpRate == mDisplayNsOperationRate && isDbvInBlockingZone)) {
                 return ret;
             }
         }
