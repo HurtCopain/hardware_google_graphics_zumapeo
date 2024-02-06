@@ -380,11 +380,11 @@ void ExynosPrimaryDisplayModule::OperationRateManager::HistogramQueryWorker::pre
     mSpAIBinder.set(aibinder);
 
     if (mSpAIBinder.get()) {
-        // full screen roi
-        mConfig.roi.left = 1;
-        mConfig.roi.top = 1;
-        mConfig.roi.right = mOpRateManager->mDisplay->mXres;
-        mConfig.roi.bottom = mOpRateManager->mDisplay->mYres;
+        // assign (0, 0, 0, 0) to indicate full screen roi since display probably isn't ready
+        mConfig.roi.left = 0;
+        mConfig.roi.top = 0;
+        mConfig.roi.right = 0;
+        mConfig.roi.bottom = 0;
         mConfig.weights.weightR = kHistogramConfigWeightR;
         mConfig.weights.weightG = kHistogramConfigWeightG;
         mConfig.weights.weightB = kHistogramConfigWeightB;
@@ -407,6 +407,9 @@ void ExynosPrimaryDisplayModule::OperationRateManager::HistogramQueryWorker::pre
         return;
     }
 
+    // assign panel resolution for isRuntimeResolutionConfig()
+    mConfig.roi.right = mOpRateManager->mDisplay->mXres;
+    mConfig.roi.bottom = mOpRateManager->mDisplay->mYres;
     mReady = true;
     OP_MANAGER_LOGI(mOpRateManager->mDisplay, "register histogram successfully");
 }
@@ -430,7 +433,7 @@ bool ExynosPrimaryDisplayModule::OperationRateManager::HistogramQueryWorker::
         return false;
     }
 
-    // histogram will change roi automatically
+    // histogram will change roi automatically, no need to reconfig
     DISPLAY_STR_LOGD(DISP_STR(mOpRateManager->mDisplay), eDebugOperationRate,
                      "histogram %dx%d->%dx%d", mConfig.roi.right, mConfig.roi.bottom,
                      mOpRateManager->mDisplay->mXres, mOpRateManager->mDisplay->mYres);
