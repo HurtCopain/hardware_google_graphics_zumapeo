@@ -202,7 +202,8 @@ int32_t ExynosPrimaryDisplayModule::OperationRateManager::updateOperationRateLoc
     bool isSteadyLowRefreshRate =
             (mDisplayPeakRefreshRate && mDisplayPeakRefreshRate <= mDisplayNsOperationRate) ||
             mDisplayLowBatteryModeEnabled;
-    bool isDbvInBlockingZone = (dbv < mDisplayNsMinDbv);
+    bool isDbvInBlockingZone = mDisplayLowBatteryModeEnabled ? (dbv < mDisplayNsMinDbv)
+                                                             : (dbv < mDisplayHsSwitchMinDbv);
     int32_t effectiveOpRate = 0;
 
     // check minimal operation rate needed
@@ -244,7 +245,8 @@ int32_t ExynosPrimaryDisplayModule::OperationRateManager::updateOperationRateLoc
                     mHistogramQueryWorker->stopQuery();
                 }
                 if (!isDbvInBlockingZone) {
-                    if (!mDisplayHsSwitchMinDbv || dbv < mDisplayHsSwitchMinDbv) {
+                    if (mDisplayLowBatteryModeEnabled &&
+                        (!mDisplayHsSwitchMinDbv || dbv < mDisplayHsSwitchMinDbv)) {
                         // delay the switch of NS->HS until conditions are satisfied
                         desiredOpRate = mDisplayRefreshRate;
                     } else if (mDisplayRefreshRate > mDisplayNsOperationRate) {
