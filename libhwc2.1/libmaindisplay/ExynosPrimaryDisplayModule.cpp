@@ -118,12 +118,14 @@ int32_t ExynosPrimaryDisplayModule::OperationRateManager::onLowPowerMode(bool en
 
 int32_t ExynosPrimaryDisplayModule::OperationRateManager::onConfig(hwc2_config_t cfg) {
     Mutex::Autolock lock(mLock);
-    if (mHistogramQueryWorker && mHistogramQueryWorker->isRuntimeResolutionConfig()) {
+    int32_t targetRefreshRate = mDisplay->getRefreshRate(cfg);
+    if (mHistogramQueryWorker && mHistogramQueryWorker->isRuntimeResolutionConfig() &&
+        mDisplayRefreshRate == targetRefreshRate) {
         mHistogramQueryWorker->updateConfig(mDisplay->mXres, mDisplay->mYres);
         // skip op update for Runtime Resolution config
         return 0;
     }
-    mDisplayRefreshRate = mDisplay->getRefreshRate(cfg);
+    mDisplayRefreshRate = targetRefreshRate;
     DISPLAY_STR_LOGD(DISP_STR(mDisplay), eDebugOperationRate, "OperationRateManager: rate=%d",
                      mDisplayRefreshRate);
     updateOperationRateLocked(DispOpCondition::SET_CONFIG);
